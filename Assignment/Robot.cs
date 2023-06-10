@@ -33,7 +33,7 @@ namespace Assignment
         /// <summary>
         /// Initializes a new instance of the <see cref="Robot"/> class with the default number of commands (6).
         /// </summary>
-        public Robot() : this(6) { }
+        public Robot() : this(6) { }//Formatting
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Robot"/> class with the specified number of commands.
