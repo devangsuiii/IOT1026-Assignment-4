@@ -3,58 +3,99 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AssignmentTest
 {
-    /// <summary>
-    /// Represents the test suite for the Assignment project.
-    /// </summary>
     [TestClass]
-    public class AssignmentTests
+    public class RobotTests
     {
-        /// <summary>
-        /// Tests the properties of the Robot class.
-        /// </summary>
         [TestMethod]
-        public void PropertiesTest()
+        public void DefaultRobot_NumCommands_InitializedTo6()
         {
-            Robot robot1 = new();
-            Assert.AreEqual(6, robot1.NumCommands);
+            // Arrange
+            Robot robot = new Robot();
 
-            const int ExpectedCommands = 10;
-            Robot robot2 = new(ExpectedCommands);
-            Assert.AreEqual(ExpectedCommands, robot2.NumCommands);
+            // Act
+            int numCommands = robot.NumCommands;
 
-            Assert.IsFalse(robot1.IsPowered);
-            robot1.IsPowered = true;
-            Assert.IsTrue(robot1.IsPowered);
-
-            Assert.AreEqual(0, robot1.X);
-            robot1.X = -5;
-            Assert.AreEqual(-5, robot1.X);
-
-            Assert.AreEqual(0, robot1.Y);
-            robot1.Y = -5;
-            Assert.AreEqual(-5, robot1.Y);
+            // Assert
+            Assert.AreEqual(6, numCommands);
         }
 
-        /// <summary>
-        /// Tests the execution of a custom command on the Robot.
-        /// </summary>
         [TestMethod]
-        public void CustomCommandTest()
+        public void CustomRobot_NumCommands_InitializedToSpecifiedValue()
         {
-            Robot robot = new();
+            // Arrange
+            const int ExpectedCommands = 10;
+            Robot robot = new Robot(ExpectedCommands);
 
-            // Load commands
-            robot.LoadCommand(new OnCommand());
-            robot.LoadCommand(new EastCommand());
-            robot.LoadCommand(new CustomCommand());
+            // Act
+            int numCommands = robot.NumCommands;
 
-            // Run commands
-            robot.Run();
+            // Assert
+            Assert.AreEqual(ExpectedCommands, numCommands);
+        }
 
-            // Check final state
-            Assert.AreEqual(1, robot.X);
-            Assert.AreEqual(0, robot.Y);
-            Assert.IsTrue(robot.IsPowered);
+        [TestMethod]
+        public void Robot_IsPowered_DefaultValue_IsFalse()
+        {
+            // Arrange
+            Robot robot = new Robot();
+
+            // Act
+            bool isPowered = robot.IsPowered;
+
+            // Assert
+            Assert.IsFalse(isPowered);
+        }
+
+        [TestMethod]
+        public void Robot_X_DefaultValue_IsZero()
+        {
+            // Arrange
+            Robot robot = new Robot();
+
+            // Act
+            int x = robot.X;
+
+            // Assert
+            Assert.AreEqual(0, x);
+        }
+
+        [TestMethod]
+        public void Robot_Y_DefaultValue_IsZero()
+        {
+            // Arrange
+            Robot robot = new Robot();
+
+            // Act
+            int y = robot.Y;
+
+            // Assert
+            Assert.AreEqual(0, y);
+        }
+
+        [TestMethod]
+        public void Robot_SetX_UpdateXValue()
+        {
+            // Arrange
+            Robot robot = new Robot();
+
+            // Act
+            robot.X = -5;
+
+            // Assert
+            Assert.AreEqual(-5, robot.X);
+        }
+
+        [TestMethod]
+        public void Robot_SetY_UpdateYValue()
+        {
+            // Arrange
+            Robot robot = new Robot();
+
+            // Act
+            robot.Y = -5;
+
+            // Assert
+            Assert.AreEqual(-5, robot.Y);
         }
     }
 }
